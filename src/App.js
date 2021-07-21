@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import MaskedInput from "./MaskedInput";
 import './App.css';
+import React, { useState } from "react";
 
 function App() {
+
+  const [values, setValues] = useState({});
+  console.log(values);
+
+  function handleChange(event){
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <MaskedInput
+          mask="999.999.999-99"
+          name="cpf"
+          value={values.cpf}
+          onChange={handleChange} 
+        />
+        <MaskedInput
+          name="cnpj"
+          mask="99.999.999/9999-99" 
+          value={values.cnpj}
+          onChange={handleChange} 
+        />
+        <button onClick={() => setValues({})}>Limpar</button>
     </div>
   );
 }
